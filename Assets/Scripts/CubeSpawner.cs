@@ -25,11 +25,12 @@ public class CubeSpawner : MonoBehaviour
     private Vector3 DetermineSpawnPoints()
     {
         Vector3 spawnPoint;
+        float valueBisection = 2f;
 
-        float minValueXAxis = _platform.transform.position.x - (_platform.transform.localScale.x / 2);
-        float maxValueXAxis = _platform.transform.position.x + (_platform.transform.localScale.x / 2);
-        float minValueZAxis = _platform.transform.position.z - (_platform.transform.localScale.z / 2);
-        float maxValueZAxis = _platform.transform.position.z + (_platform.transform.localScale.z / 2);
+        float minValueXAxis = _platform.transform.position.x - (_platform.transform.localScale.x / valueBisection);
+        float maxValueXAxis = _platform.transform.position.x + (_platform.transform.localScale.x / valueBisection);
+        float minValueZAxis = _platform.transform.position.z - (_platform.transform.localScale.z / valueBisection);
+        float maxValueZAxis = _platform.transform.position.z + (_platform.transform.localScale.z / valueBisection);
 
         float valueAlongYAxis = 15;
 
