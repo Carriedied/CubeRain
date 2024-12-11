@@ -1,40 +1,42 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Renderer))]
 public class Cube : MonoBehaviour
 {
-    private CubesPool _cubePool;
+    public event Action<Cube> Release;
+
     private Coroutine _disappearCoroutine;
-    private Renderer _choiceCubeColor;
-    private Color _defaultColor;
+    private ColorChanger _cubeColor;
 
     private float _minLifeTime = 2f;
     private float _maxLifeTime = 5f;
 
     private void Awake()
     {
-        _choiceCubeColor = GetComponent<Renderer>();
-        _defaultColor = _choiceCubeColor.material.color;
+        _cubeColor = GetComponent<ColorChanger>();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (_disappearCoroutine == null)
         {
-            ChangeColor();
+            _cubeColor.ChangeColor();
+
             _disappearCoroutine = StartCoroutine(DeactivateAfterDelay(ChangeLifeTime()));
         }
     }
 
-    public void Initialize(CubesPool pool)
+    private void TriggerRelease()
     {
-        _cubePool = pool;
+        Release?.Invoke(this);
     }
 
     private IEnumerator DeactivateAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
+
         Disappear();
     }
 
@@ -46,17 +48,13 @@ public class Cube : MonoBehaviour
             _disappearCoroutine = null;
         }
 
-        _choiceCubeColor.material.color = _defaultColor;
-        _cubePool.ReleaseCube(gameObject);
+        _cubeColor.BackToInitialColor();
+
+        TriggerRelease();
     }
 
     private float ChangeLifeTime()
     {
-        return Random.Range(_minLifeTime, _maxLifeTime + 1);
-    }
-
-    private void ChangeColor()
-    {
-        _choiceCubeColor.material.color = new Color(Random.value, Random.value, Random.value);
+        return UnityEngine.Random.Range(_minLifeTime, _maxLifeTime + 1);
     }
 }

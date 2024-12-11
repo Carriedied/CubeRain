@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783487c693ac9bf43aa15ebd07828572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cubePrefab: {fileID: 5546114534060273894, guid: 06879586684564741a45f8621da86923, type: 3}
+  _cubePrefab: {fileID: 7560023879920327947, guid: 06879586684564741a45f8621da86923, type: 3}
   _poolCapacity: 10
   _poolMaxSize: 20
 --- !u!4 &285667408

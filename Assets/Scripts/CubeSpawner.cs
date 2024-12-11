@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Cube))]
 public class CubeSpawner : MonoBehaviour
 {
     [SerializeField] private CubesPool _cubesPool;
@@ -16,10 +15,9 @@ public class CubeSpawner : MonoBehaviour
 
     private void SpawnCube()
     {
-        GameObject cube = _cubesPool.GetCube();
+        Cube cube = _cubesPool.GetCube();
 
         cube.transform.position = DetermineSpawnPoints();
-        cube.GetComponent<Cube>().Initialize(_cubesPool);
     }
 
     private Vector3 DetermineSpawnPoints()
